@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.logo{
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  background: #111;
+  width: 100%;
+  height: 19vh;
+  justify-content: space-around;
+
+}
+
+/* Menu fixado ocupando tamanho maximo*/
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Estilo do menu e do dropdown*/
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Hover ao passar o mouse */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: rgba(0, 128, 100, 0.795);
+}
+
+h2{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+}
+
+/* campo da tabela */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/*  Cor que exibi ao abrir o botão de down*/
+.active {
+  background-color: rgba(0, 128, 100, 0.795);
+  color: white;
+}
+
+/* background do down e hover */
+.dropdown-container {
+  display: none;
+  background-color: #65b3b342;
+  padding-left: 8px;
+}
+
+/* Icone da seta down */
+.fa-caret-down {
+  float: right;
+  padding-right: 19px;
+}
+
+/* Responsividade da tela */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+/* Manter tamanho da tela proporcional */
+* {
+  box-sizing: border-box;
+}
+
+
+/* Campo de busca - Tabela */
+#myInput {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 2px solid rgba(0, 128, 100, 0.795);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Tabela */
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+
+/* Tamanho e alinhamento dos itens dentro da tabela*/
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+
+/* linha de divisão da  tabela*/
+#myTable tr {
+  border-bottom: 1px solid rgb(117, 117, 117);
+}
+
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: rgba(0, 128, 100, 0.795);
+}
+
+
+</style>
+</head>
+<body>
+ 
+
+<div class="sidenav">
+
+  <div class="logo">
+
+    <img src="{{ url_for('static', filename='img/dfv_logo.png') }}" alt="">
+
+</div>
+
+  <a href="{{url_for('financeiro')}}">Financeiro</a>
+  <a href="{{url_for('rh')}}">RH</a>
+  <a href="{{url_for('compras')}}">Compras</a>
+  <a href="{{url_for('engenharia')}}">Engenharia</a>
+  <a href="{{url_for('faturamento')}}">Faturamento</a>
+
+ 
+  
+  <button class="dropdown-btn">Dropdown 
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="{{url_for('ti')}}">Link 1</a>
+    <a href="{{url_for('ti')}}">Link 2</a>
+    <a href="{{url_for('ti')}}">Link 3</a>
+  </div>
+  <a href="{{url_for('ti')}}">Ti</a>
+
+  
+</div>
+
+<div class="main">
+  <div class="documets">
+    <h2>MDocumentos</h2>
+  
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names documets.." title="Type in a name">
+  
+      <table id="myTable">
+        
+        <tr class="header">
+            <th style="width:40%;">Nome do Arquivo</th>
+            <th style="width: 20%;">Categoria</th>
+            <th style="width:40%;">Arquivo</tr>
+        </tr>
+        {% block content %}
+        
+        {% endblock %}
+      </table>
+  </div>
+    
+</div>
+  <script>
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+  </script>
+
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+
+</body>
+</html> 
