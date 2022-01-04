@@ -1,0 +1,19 @@
+{% extends 'padrao.html' %}
+{% block content %}
+
+<tr>
+    <td>Baixa no saldo pendente em Pedido de Venda</td>
+    
+    <td class="img_pdf"><a href="{{ url_for('static', filename='pdf/Vendas/Baixa no saldo pendente em Pedido de Venda.pdf') }}" target="_blank"><img src="{{ url_for('static', filename='img/pdf.png') }}" alt=""></a></td>
+</tr>
+
+<tr>
+    <td>O item não possui classe financeira definida para a aplicação</td>
+    
+    <td class="img_pdf"><a href="{{ url_for('static', filename='pdf/Vendas/O item não possui classe financeira definida para a aplicação.pdf') }}" target="_blank"><img src="{{ url_for('static', filename='img/pdf.png') }}" alt=""></a></td>
+</tr>
+
+
+
+
+{% endblock %}
