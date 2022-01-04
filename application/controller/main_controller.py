@@ -31,3 +31,20 @@ def engenharia():
 def faturamento():
     return render_template("faturamento.html")
 
+@app.route("/admateriais")
+def admateriais():
+    return render_template("ADMateriais.html")
+
+
+@app.route("/Fiscal")
+def fiscal():
+    return render_template("fiscal.html")
+
+@app.route("/Manufatura")
+def manufatura():
+    return render_template("manufatura.html")
+
+@app.route("/Contabil")
+def contabil():
+    return render_template("contabil.html")
+
