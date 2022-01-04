@@ -48,3 +48,7 @@ def manufatura():
 def contabil():
     return render_template("contabil.html")
 
+@app.route("/Vendas")
+def vendas():
+    return render_template("vendas.html")
+
